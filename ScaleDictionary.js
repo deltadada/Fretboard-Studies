@@ -48,138 +48,168 @@ var dictKeys = {
 	"Gsharp" : kGsharp,
 	"Asharp" : kAsharp};
 
-var INTS_FLATS = ['R', '&#9837;9', '9', '&#9837;3', '3', '11', '&#9837;5', '5', '&#9837;13', '13', '&#9837;7', '7'];
-var INTS_SHARP4 = ['R', '&#9837;9', '9', '&#9837;3', '3', '11', '&#9839;11', '5', '&#9837;13', '13', '&#9837;7', '7'];
-var INTS_DOM = ['R', '&#9837;9', '9', '&#9839;9', '3', '11', '&#9837;5', '5', '&#43;5', '13', '&#9837;7', '7'];
 
-var INTS_SHARP4AUG = ['R', '&#9837;9', '9', '&#9837;3', '3', '11', '&#9839;11', '5', '&#43;5', '13', '&#9837;7', '7'];
-var INTS_DIM = ['R', '&#9837;9', '9', '&#9837;3', '3', '11', '&#9839;4', '5', '&#43;5', '&#9837;&#9837;7', '&#9837;7', '7'];
-var INTS_SUPERLOCRIAN = ['R', '&#9837;9', '9', '&#9837;3', '&#9837;4', '11', '&#9837;5', '5', '&#9837;13', '13', '&#9837;7', '7'];
 
-var _ROOT = {
+// old
+//var INTS_FLATS = ['R', '&#9837;9', '9', '&#9837;3', '3', '11', '&#9837;5', '5', '&#9837;13', '13', '&#9837;7', '7'];
+//var INTS_SHARP4 = ['R', '&#9837;9', '9', '&#9837;3', '3', '11', '&#9839;11', '5', '&#9837;13', '13', '&#9837;7', '7'];
+//var INTS_DOM = ['R', '&#9837;9', '9', '&#9839;9', '3', '11', '&#9837;5', '5', '&#43;5', '13', '&#9837;7', '7'];
+
+//var INTS_SHARP4AUG = ['R', '&#9837;9', '9', '&#9837;3', '3', '11', '&#9839;11', '5', '&#43;5', '13', '&#9837;7', '7'];
+//var INTS_DIM = ['R', '&#9837;9', '9', '&#9837;3', '3', '11', '&#9837;5', '5', '&#43;5', '&#9837;&#9837;7', '&#9837;7', '7'];
+//var INTS_SUPERLOCRIAN = ['R', '&#9837;9', '9', '&#9837;3', '&#9837;4', '11', '&#9837;5', '5', '&#9837;13', '13', '&#9837;7', '7'];
+
+
+
+var dictInt = {
+'ROOT': {
 	'SEMI' : 0,
 	'INT' : 'R',
-	'CLR' : 'i__ROOT'
-	}
+	'CLR' : 'i_root'
+},
 
-var FLATNINE = {
+'FLATNINE' : {
 	'SEMI' : 1,
 	'INT' : '&#9837;9',
 	'CLR' : 'i_flatnine'
-	}
+},
 
-var NINE = {
+'NINE' : {
 	'SEMI' : 2,
 	'INT' : '9',
 	'CLR' : 'i_flatnine'
-	}
+},
 
-var SHARPNINE = {
+'SHARPNINE' : {
 	'SEMI' : 3,
-	'INT' : '&#9839;11',
+	'INT' : '&#9839;9',
 	'CLR' : 'i_sharpnine'
-	}
+},
 
-var FLATTHREE = {
+'FLATTHREE' : {
 	'SEMI' : 3,
 	'INT' : '&#9837;3',
 	'CLR' : 'i_third'
-	}
+},
 
-var THIRD = {
+'THIRD' : {
 	'SEMI' : 4,
 	'INT' : '3',
 	'CLR' : 'i_third'
-	}
+},
 
-var DIMELEVEN = {
+'DIMELEVEN' : {
 	'SEMI' : 4,
 	'INT' : '&#9837;11',
 	'CLR' : 'i_fourth'
-	}
+},
 
-var ELEVEN = {
+'ELEVEN' : {
 	'SEMI' : 5,
 	'INT' : '11',
 	'CLR' : 'i_fourth'
-	}
+},
 
-var SHARPELEVEN = {
+'SHARPELEVEN' : {
 	'SEMI' : 6,
 	'INT' : '&#9839;11',
 	'CLR' : 'i_fourth'
-	}
+},
 
-var FLATFIVE = {
+'FLATFIVE' : {
 	'SEMI' : 6,
 	'INT' : '&#9837;5',
 	'CLR' : 'i_fifth'
-	}
+},
 
-var FIFTH = {
+'FIFTH' : {
 	'SEMI' : 7,
 	'INT' : '5',
 	'CLR' : 'i_fifth'
-	}
+},
 
-var AUGFIVE = {
+'AUGFIVE' : {
 	'SEMI' : 8,
-	'INT' : '&#9839;5',
+	'INT' : '&#43;5',
 	'CLR' : 'i_fifth'
-	}
+},
 
-var FLATTHIRTEEN = {
+'FLATTHIRTEEN' : {
 	'SEMI' : 8,
 	'INT' : '&#9837;13',
 	'CLR' : 'i_sixth'
-	}
+},
 
-var THIRTEEN = {
+'THIRTEEN' : {
 	'SEMI' : 9,
 	'INT' : '13',
 	'CLR' : 'i_sixth'
-	}
+},
 
-var AUGTHIRTEEN = {
+'AUGTHIRTEEN' : {
 	'SEMI' : 10,
-	'INT' : '&#9839;13',
+	'INT' : '&#43;13',
 	'CLR' : 'i_sixth'
-	}
+},
 
-var FLATSEVEN = {
+'DBLFLATSEVEN' : {
+	'SEMI' : 10,
+	'INT' : '&#9837;&#9837;7',
+	'CLR' : 'i_seventh'
+},
+
+'FLATSEVEN' : {
 	'SEMI' : 10,
 	'INT' : '&#9837;7',
 	'CLR' : 'i_seventh'
-	}
+},
 
-var SEVENTH = {
+'SEVENTH' : {
 	'SEMI' : 11,
 	'INT' : '7',
 	'CLR' : 'i_seventh'
-	}
+},
 
-var TX = {
+'TX' : {
 	// tone outside of scale, inherit semitone and int
 	'SEMI' : -1,
 	'INT' : '',
 	'CLR' : 'white'
-	}
+},
 
-var TI = {
+'TI' : {
 	// tone in scale, inherit semitone and int
 	'SEMI' : -1,
 	'INT' : '',
 	'CLR' : 'black'
-	}
+},
+
+'TP' : {
+	// passing tone in scale, inherit semitone and int
+	'SEMI' : -1,
+	'INT' : '',
+	'CLR' : 'i_passing'
+}
+}
+
+var INTS_FLATS = [dictInt.ROOT.INT, dictInt.FLATNINE.INT, dictInt.NINE.INT, dictInt.FLATTHREE.INT, dictInt.THIRD.INT, dictInt.ELEVEN.INT, dictInt.FLATFIVE.INT, dictInt.FIFTH.INT, dictInt.FLATTHIRTEEN.INT, dictInt.THIRTEEN.INT, dictInt.FLATSEVEN.INT, dictInt.SEVENTH.INT];
+var INTS_SHARP4 = [dictInt.ROOT.INT, dictInt.FLATNINE.INT, dictInt.NINE.INT, dictInt.FLATTHREE.INT, dictInt.THIRD.INT, dictInt.ELEVEN.INT, dictInt.SHARPELEVEN.INT, dictInt.FIFTH.INT, dictInt.FLATTHIRTEEN.INT, dictInt.THIRTEEN.INT, dictInt.FLATSEVEN.INT, dictInt.SEVENTH.INT];
+var INTS_DOM = [dictInt.ROOT.INT, dictInt.FLATNINE.INT, dictInt.NINE.INT, dictInt.SHARPNINE.INT, dictInt.THIRD.INT, dictInt.ELEVEN.INT, dictInt.FLATFIVE.INT, dictInt.FIFTH.INT, dictInt.AUGFIVE.INT, dictInt.THIRTEEN.INT, dictInt.FLATSEVEN.INT, dictInt.SEVENTH.INT];
+
+var INTS_SHARP4AUG = [dictInt.ROOT.INT, dictInt.FLATNINE.INT, dictInt.NINE.INT, dictInt.FLATTHREE.INT, dictInt.THIRD.INT, dictInt.ELEVEN.INT, dictInt.SHARPELEVEN.INT, dictInt.FIFTH.INT, dictInt.AUGFIVE.INT, dictInt.THIRTEEN.INT, dictInt.FLATSEVEN.INT, dictInt.SEVENTH.INT];
+var INTS_DIM = [dictInt.ROOT.INT, dictInt.FLATNINE.INT, dictInt.NINE.INT, dictInt.FLATTHREE.INT, dictInt.THIRD.INT, dictInt.ELEVEN.INT, dictInt.FLATFIVE.INT, dictInt.FIFTH.INT, dictInt.AUGFIVE.INT, dictInt.DBLFLATSEVEN.INT, dictInt.FLATSEVEN.INT, dictInt.SEVENTH.INT];
+var INTS_SUPERLOCRIAN = [dictInt.ROOT.INT, dictInt.FLATNINE.INT, dictInt.NINE.INT, dictInt.SHARPNINE.INT, dictInt.DIMELEVEN.INT, dictInt.ELEVEN.INT, dictInt.FLATFIVE.INT, dictInt.FIFTH.INT, dictInt.AUGFIVE.INT, dictInt.THIRTEEN.INT, dictInt.FLATSEVEN.INT, dictInt.SEVENTH.INT];
+
+
 
 // Scale Formulas
-var IF_IONIAN = [_ROOT, TX, TI, TX, THIRD, TI, TX, FIFTH, TX, TI, TX, SEVENTH];
-var IF_LYDIAN = [_ROOT, TX, TI, TX, THIRD, TX, SHARPELEVEN, FIFTH, TX, TI, TX, SEVENTH];
-var IF_MIXOLYDIAN = [_ROOT, TX, TI, TX, THIRD, TI, TX, FIFTH, TX, TI, FLATSEVEN, TX];
-var IF_DORIAN = [_ROOT, TX, TI, FLATTHREE, TX, TI, TX, FIFTH, TX, TI, FLATSEVEN, TX];
-var IF_AEOLIAN = [_ROOT, TX, TI, FLATTHREE, TX, TI, TX, FIFTH, FLATTHIRTEEN, TX, FLATSEVEN, TX];
-var IF_PHRYGIAN = [_ROOT, FLATNINE, TX, FLATTHREE, TX, TI, TX, FIFTH, FLATTHIRTEEN, TX, FLATSEVEN, TX];
-var IF_LOCRIAN = [_ROOT, FLATNINE, TX, FLATTHREE, TX, TI, FLATFIVE, TX, FLATTHIRTEEN, TX, FLATSEVEN, TX];
+var IF_IONIAN = [dictInt.ROOT, dictInt.TX, dictInt.TI, dictInt.TX, dictInt.THIRD, dictInt.TI, dictInt.TX, dictInt.FIFTH, dictInt.TX, dictInt.TI, dictInt.TX, dictInt.SEVENTH];
+var IF_LYDIAN = [dictInt.ROOT, dictInt.TX, dictInt.TI, dictInt.TX, dictInt.THIRD, dictInt.TX, dictInt.SHARPELEVEN, dictInt.FIFTH, dictInt.TX, dictInt.TI, dictInt.TX, dictInt.SEVENTH];
+var IF_MIXOLYDIAN = [dictInt.ROOT, dictInt.TX, dictInt.TI, dictInt.TX, dictInt.THIRD, dictInt.TI, dictInt.TX, dictInt.FIFTH, dictInt.TX, dictInt.TI, dictInt.FLATSEVEN, dictInt.TX];
+var IF_DORIAN = [dictInt.ROOT, dictInt.TX, dictInt.TI, dictInt.FLATTHREE, dictInt.TX, dictInt.TI, dictInt.TX, dictInt.FIFTH, dictInt.TX, dictInt.TI, dictInt.FLATSEVEN, dictInt.TX];
+var IF_AEOLIAN = [dictInt.ROOT, dictInt.TX, dictInt.TI, dictInt.FLATTHREE, dictInt.TX, dictInt.TI, dictInt.TX, dictInt.FIFTH, dictInt.FLATTHIRTEEN, dictInt.TX, dictInt.FLATSEVEN, dictInt.TX];
+var IF_PHRYGIAN = [dictInt.ROOT, dictInt.FLATNINE, dictInt.TX, dictInt.FLATTHREE, dictInt.TX, dictInt.TI, dictInt.TX, dictInt.FIFTH, dictInt.FLATTHIRTEEN, dictInt.TX, dictInt.FLATSEVEN, dictInt.TX];
+var IF_LOCRIAN = [dictInt.ROOT, dictInt.FLATNINE, dictInt.TX, dictInt.FLATTHREE, dictInt.TX, dictInt.TI, dictInt.FLATFIVE, dictInt.TX, dictInt.FLATTHIRTEEN, dictInt.TX, dictInt.FLATSEVEN, dictInt.TX];
 
 
 // scales
@@ -205,10 +235,9 @@ var INTCLR_PENTMAJ = ["i_root", "white","black","white","i_third","white","white
 var INTCLR_PENTDOM = ["i_root", "white","black","white","i_third","white","white","i_fifth","white","white","black","white"];
 var INTCLR_PENTMINMEL = ["i_root", "white","black","i_third","white","white","white","i_fifth","white","black","white","white"];
 
-
 var SC_MAJOR =  { "ngtype": SCALE, "varname" : "MAJOR", "name" : "Ionian", "intnames": INTS_FLATS, "color" : INTCLR_IONIAN };
 var SC_LYDIAN =  { "ngtype": SCALE, "varname" : "LYDIAN", "name" : "Lydian", "intnames": INTS_SHARP4, "color" : INTCLR_LYDIAN };
-var SC_MIXOLYDIAN =  { "ngtype": SCALE, "varname" : "MIXOLYDIAN", "name" : "Mixolydian", "intnames": INTS_FLATS, "color" : INTCLR_MIXOLYDIAN };
+var SC_MIXOLYDIAN =  { "ngtype": SCALE, "varname" : "MIXOLYDIAN", "name" : "Mixolydian", "intnames": INTS_DOM, "color" : INTCLR_MIXOLYDIAN };
 var SC_DORIAN =  { "ngtype": SCALE,"varname" : "DORIAN", "name" : "Dorian", "intnames": INTS_FLATS, "color" : INTCLR_DORIAN };
 var SC_AEOLIAN =  { "ngtype": SCALE, "varname" : "AEOLIAN", "name" : "Aeolian", "intnames": INTS_FLATS, "color" : INTCLR_AEOLIAN };
 var SC_PHRYGIAN =  { "ngtype": SCALE, "varname" : "PHRYGIAN", "name" : "Phrygian", "intnames": INTS_FLATS, "color" : INTCLR_PHRYGIAN };
@@ -317,6 +346,36 @@ var dictChords={
 	//"CHD_MAJDROP2" : CHD_MAJDROP2
 	}
 
+var Notegroups = {
+	"MAJ":ARP_MAJ,
+	"MAJ7":ARP_MAJ7,
+	"DOM7":ARP_DOM7,
+	"MIN":ARP_MIN,
+	"MIN7":ARP_MIN7,
+	"MIN7b5":ARP_MIN7b5,
+	"DIM":ARP_DIM,
+	"MAJOR":SC_MAJOR,
+	"LYDIAN":SC_LYDIAN,
+	"MIXOLYDIAN":SC_MIXOLYDIAN,
+	"DORIAN":SC_DORIAN,
+	"AEOLIAN":SC_AEOLIAN,
+	"PHRYGIAN":SC_PHRYGIAN,
+	"LOCRIAN":SC_LOCRIAN,
+	"DIMINISHED":SC_DIMINISHED,
+	"MINHARM":SC_MINHARM,
+	"MINMEL":SC_MINMEL,
+	"ALTERED":SC_ALTERED,
+	"LYDIANDOM":SC_LYDIANDOM,
+	"PHRYGDOM":SC_PHRYGDOM,
+	"LYDIANAUG":SC_LYDIANAUG,
+	"MINNAT":SC_MINNAT,
+	"MINJAZZ":SC_MINJAZZ,
+	"PENTMIN":SC_PENTMIN,
+	"PENTMAJ":SC_PENTMAJ,
+	"PENTDOM":SC_PENTDOM,
+	"PENTMELMIN":SC_PENTMELMIN
+}
+
 var FretboardModel = {
 	// model to hold current Key, Notegroup and NG type for fretboard
 	"chromNames" : CHROMFLAT,
@@ -411,9 +470,7 @@ var FretboardModel = {
 	},
 
 	"getNGintcolor" : function(){
-			var dict = this["ngType"];
-			var ng = dict[this["ng"]];
-			return ng["color"]; // returns array of css colors
+			return this["ngType"][this["ng"]]["color"];
 	},
 	"getNGintnames" : function(){
 			var dict = this["ngType"];
