@@ -10,6 +10,11 @@ var ARP = "ARP"; // constant
 
 var CHROMFLAT = ['C', 'D&#9837;', 'D', 'E&#9837;', 'E', 'F', 'G&#9837;', 'G', 'A&#9837;', 'A', 'B&#9837;', 'B'];
 var CHROMSHARP = ['C', 'C&#9839;', 'D', 'D&#9839;', 'E', 'F', 'F&#9839;', 'G', 'G&#9839;', 'A', 'A&#9839;', 'B'];
+var CHROMFLAT_Cb = ['C', 'D&#9837;', 'D', 'E&#9837;', 'E', 'F', 'G&#9837;', 'G', 'A&#9837;', 'A', 'B&#9837;', 'C&#9837'];
+var CHROMSHARP_Bs = ['B&#9839', 'C&#9839;', 'D', 'D&#9839;', 'E', 'F', 'F&#9839;', 'G', 'G&#9839;', 'A', 'A&#9839;', 'B'];
+var CHROMSHARP_Es = ['B&#9839', 'C&#9839;', 'D', 'D&#9839;', 'E', 'E&#9839;', 'F&#9839;', 'G', 'G&#9839;', 'A', 'A&#9839;', 'B'];
+var CHROMSHARP_Fx = ['C', 'C&#9839;', 'D', 'D&#9839;', 'E', 'F', 'F&#9839;', 'F&#215;', 'G&#9839;', 'A', 'A&#9839;', 'B'];
+var CHROMSHARP_CxFxGxBs = ['B&#9839', 'C&#9839;', 'F&#215;', 'D&#9839;', 'E', 'F', 'F&#9839;', 'F&#215;', 'G&#9839;', 'G&#215;', 'A&#9839;', 'B'];
 
 
 kC = {"name" : "C", "safename" : "Cnatural", "baseScale" : CHROMFLAT, "fromC" : 0};
@@ -18,16 +23,16 @@ kD = {"name" : "D",  "safename" : "Dnatural", "baseScale" : CHROMSHARP, "fromC" 
 kEflat = {"name" : "E&#9837;",  "safename" : "Eflat", "baseScale" : CHROMFLAT, "fromC" : 3};
 kE = {"name" : "E",  "safename" : "Enatural", "baseScale" : CHROMSHARP, "fromC" : 4};
 kF = {"name" : "F",  "safename" : "Fnatural", "baseScale" : CHROMFLAT, "fromC" : 5};
-kGflat = {"name" : "G&#9837;",  "safename" : "Gflat", "baseScale" : CHROMFLAT, "fromC" : 6};
+kGflat = {"name" : "G&#9837;",  "safename" : "Gflat", "baseScale" : CHROMFLAT_Cb, "fromC" : 6};
 kG = {"name" : "G",  "safename" : "Gnatural", "baseScale" : CHROMSHARP, "fromC" : 7};
 kAflat = {"name" : "A&#9837;",  "safename" : "Aflat", "baseScale" : CHROMFLAT, "fromC" : 8};
 kA = {"name" : "A",  "safename" : "Anatural", "baseScale" : CHROMSHARP, "fromC" : 9};
 kBflat = {"name" : "B&#9837;",  "safename" : "Bflat", "baseScale" : CHROMFLAT, "fromC" : 10};
 kB = {"name" : "B",  "safename" : "Bnatural", "baseScale" : CHROMSHARP, "fromC" : 11};
-kCsharp = {"name" : "C&#9839;",  "safename" : "Csharp", "baseScale" : CHROMSHARP, "fromC" : 1};
-kFsharp = {"name" : "F&#9839;",  "safename" : "Fsharp", "baseScale" : CHROMSHARP, "fromC" : 6};
-kGsharp = {"name" : "G&#9839;",  "safename" : "Gsharp","baseScale" : CHROMSHARP, "fromC" : 8};
-kAsharp = {"name" : "A&#9839;",  "safename" : "Asharp","baseScale" : CHROMSHARP, "fromC" : 10};
+kCsharp = {"name" : "C&#9839;",  "safename" : "Csharp", "baseScale" : CHROMSHARP_Bs, "fromC" : 1};
+kFsharp = {"name" : "F&#9839;",  "safename" : "Fsharp", "baseScale" : CHROMSHARP_Es, "fromC" : 6};
+kGsharp = {"name" : "G&#9839;",  "safename" : "Gsharp","baseScale" : CHROMSHARP_Fx, "fromC" : 8};
+kAsharp = {"name" : "A&#9839;",  "safename" : "Asharp","baseScale" : CHROMSHARP_CxFxGxBs, "fromC" : 10};
 
 // dict keys collects above objects
 var dictKeys = {
