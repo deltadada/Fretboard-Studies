@@ -433,9 +433,12 @@ var FretboardModel = {
 			return kObj["fromC"];
 		},
 	"setKey" : function(kObj, notesDisplay){
+
 			if(notesDisplay){
+				// if notesDisplay, changing display key
 				this["notesDisplayKey"] = kObj;
 			} else {
+				// if !notesDisplay, changing notegroup painting key
 				this["key"] = kObj;
 			}
 			var keyInt = kObj.fromC;

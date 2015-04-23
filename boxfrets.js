@@ -200,6 +200,7 @@ var create_link_from_fretboard = function(){
     href += '#';
     href += "strings=" + uri_diagram_repr(GUITAR_STRINGS);
 	href += "&key="+mFB.getKeyObj().safename;
+	href += "&displayKey="+mFB.getNotesDisplayKey().safename;
 	href +="&ng="+mFB.getNotegroup().varname;
 	href += "&intColor="+COLORBYINTERVALS;
 	href += "&intNames="+INTERVALMODE;
@@ -465,6 +466,7 @@ var ctrl_updateMessage = function(){
 		// update link url
 		if(mFB.getNotegroupDict() != dictArps){msg += " ";}
 		msg += mFB.getNotegroup().name+"</strong>";
+		msg += " in key of "+mFB.getNotesDisplayKey().name;
 		$('#message').html(msg);
 		} else{
 			if(CHECKING_URL_QUIZ){
@@ -479,12 +481,12 @@ var ctrl_updateMessage = function(){
 var ctl_updateIntervalMode = function(isIntervalMode){
 
 		if(isIntervalMode){
-			$('#modeNoteInt').attr('value', 'Notes');
+			$('#modeNoteInt').attr('value', 'Display Notes');
 			INTERVALMODE = true;
 			set_notespans(true);
 			update_link();
 		} else {
-			$('#modeNoteInt').attr('value', 'Intervals');
+			$('#modeNoteInt').attr('value', 'Display Intervals');
 			INTERVALMODE = false;
 			set_notespans(true);
 			update_link();
@@ -587,14 +589,14 @@ var ctl_color_td_by_interval = function(string, fret){
 
 var ctl_change_key = {
 	"setRoot" : function(kObj){
-			mFB.setKey(kObj, false);
+			mFB.setKey(kObj, false); // false: change notegroup painting key
 			if($("#selKey").val() != kObj.safename){
 				$("#selKey").val(kObj.safename);
 			}
 			set_notespans(true);
 		},
 	"keyChangeNotegroup" : function(kSafeName){
-			mFB.setKey(dictKeys[kSafeName], false);
+			mFB.setKey(dictKeys[kSafeName], false); // false: change notegroup painting key
 			// var selKeyVal = $("#selKey").val(); // removed, changing notegroup does not change display notes
 			// if(selKeyVal != kSafeName){
 			// 	$("#selKey").val(kSafeName);
@@ -602,7 +604,7 @@ var ctl_change_key = {
 		},
 	"selKeyChange" : function(selKeyVal){
 
-			mFB.setKey(dictKeys[selKeyVal], true);
+			mFB.setKey(dictKeys[selKeyVal], true); // true: change note display key
 			set_notespans(false);
 			update_link();
 		}
@@ -1299,7 +1301,7 @@ $('input[name=sp_Color][value=pallete]').prop("checked",true);
 			}
 		}
 
-// per url params, set key
+		// per url params, set notegroup key
 		if (is_defined(url_params['key'])){
 				// key should use safename, eg 'Cnatural'
 				ctl_change_key.setRoot(getKeyObjFromSafeName(url_params['key']));
@@ -1629,6 +1631,12 @@ $('input[name=sp_Color][value=pallete]').prop("checked",true);
 				}
 			}
 
+		// per url params, set display key (after selKey is bound)
+		if (is_defined(url_params['displayKey'])){
+				// key should use safename, eg 'Cnatural'
+				$("#selKey").val(url_params['displayKey']);
+				ctl_change_key.selKeyChange($('#selKey').val());
+		}
 
 	// TODO: generate jTab
 	// TODO: show chord in standard notation
