@@ -28,7 +28,7 @@ kG = {"name" : "G",  "safename" : "Gnatural", "baseScale" : CHROMSHARP, "fromC" 
 kAflat = {"name" : "A&#9837;",  "safename" : "Aflat", "baseScale" : CHROMFLAT, "fromC" : 8};
 kA = {"name" : "A",  "safename" : "Anatural", "baseScale" : CHROMSHARP, "fromC" : 9};
 kBflat = {"name" : "B&#9837;",  "safename" : "Bflat", "baseScale" : CHROMFLAT, "fromC" : 10};
-kB = {"name" : "B",  "safename" : "Bnatural", "baseScale" : CHROMSHARP, "fromC" : 11};
+kB = {"name" : "B",  "safename" : "Bnatural", "baseScale" : CHROMFLAT, "fromC" : 11};
 kCsharp = {"name" : "C&#9839;",  "safename" : "Csharp", "baseScale" : CHROMSHARP_Bs, "fromC" : 1};
 kFsharp = {"name" : "F&#9839;",  "safename" : "Fsharp", "baseScale" : CHROMSHARP_Es, "fromC" : 6};
 kGsharp = {"name" : "G&#9839;",  "safename" : "Gsharp","baseScale" : CHROMSHARP_Fx, "fromC" : 8};
@@ -387,6 +387,22 @@ var FretboardModel = {
 	"key" : kC,
 	"ng" : "SC_MAJOR",
 	"ngType" : dictScales,
+	"notesDisplayKey" : kC,
+	"notesDisplayChromnames" : CHROMFLAT,
+
+	"getNotesDisplayKey" : function(){
+		var k = this["notesDisplayKey"];
+		return k;
+	},
+
+	"getNotesDisplayChromnames" : function(){
+		var k = this["notesDisplayChromnames"];
+		return k;
+	},
+
+	"setNotesDisplayChromnames" : function(cn){
+		this["notesDisplayChromnames"] = cn;
+	},
 
 	"getChromNames" : function(){
 			var cn = this["chromNames"];
@@ -416,8 +432,12 @@ var FretboardModel = {
 			var kObj = this["key"];
 			return kObj["fromC"];
 		},
-	"setKey" : function(kObj){
-			this["key"] = kObj;
+	"setKey" : function(kObj, notesDisplay){
+			if(notesDisplay){
+				this["notesDisplayKey"] = kObj;
+			} else {
+				this["key"] = kObj;
+			}
 			var keyInt = kObj.fromC;
 			var basescale = kObj.baseScale;
 			var newscale = new Array();
@@ -427,8 +447,14 @@ var FretboardModel = {
 				var t = basescale[j];
 				newscale[i] = basescale[j];
 			}
-			// chrom names array will start with KEY as root
-			this["chromNames"] = newscale;
+			if(notesDisplay){
+				// notesDisplayChrom names array will start with notesDisplayKey as root
+				this["notesDisplayChromnames"] = basescale;
+			} else {
+				// chrom names array will start with KEY as root
+				this["chromNames"] = newscale;
+			}
+
 		},
 
 	"getNotegroupDict" : function(){

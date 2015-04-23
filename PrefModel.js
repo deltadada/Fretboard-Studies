@@ -20,7 +20,7 @@ var PrefModel = {
         riq_LoFret : 0,
         riq_HiFret :19,
         riq_StrDepth : 5,
-        riq_FretDepth : 5,
+        riq_FretDepth : 4,
         rrq_LoFret: 0,
         rrq_HiFret: 19,
         rrq_LoStr: 1,

@@ -108,7 +108,7 @@ var COLOR = "lightgreen"; // current pallete color for painting new notes
 var KEY = 0; // current key to inform painted note text, values
 
 // fretboard model to hold states
-var mFB = FretboardModel;
+var mFB = FretboardModel; // In scaleDictionary.js
 
 // player model to hold states for player -- 'playable' user-selected dashboard of notegroups to paint fretboard with
 // holds the 'abridged' notegroup div objects
@@ -400,14 +400,13 @@ var set_notes = function(){
 	}
 }
 
-
-var set_notespans = function(){
+var set_notespans = function(paint){
 
 	var offsets = [4, 11, 7, 2, 9, 4];
 	for(var i = 0; i < GUITAR_STRINGS.length; i++){
 		for(var j = 0; j < GUITAR_STRINGS[i].length; j++){
 			var ns = $('#'+'ns_'+i+'_'+j);
-			ns.attr('id','ns_'+i+'_'+j );// ns_(string)_(fret)
+			ns.attr('id','ns_'+i+'_'+j );// ns_(string)_(fret): i is string, j is fret
 			var note = ns.attr('notename');
 
 			var arrLen = mFB.getNGintnames().length;
@@ -416,6 +415,7 @@ var set_notespans = function(){
 			if(INTERVALMODE)
 			{
 				if (nsSemiInt == 0){
+					// don't show int for root in INTERVALMODE
 					ns.html(mFB.getChromNames()[0]);
 				}
 				else
@@ -426,16 +426,31 @@ var set_notespans = function(){
 			}
 			else
 			{
-				ns.html(mFB.getChromNames()[nsSemiInt]);
+
+				//ns.html(mFB.getChromNames()[nsSemiInt]); // REMOVED: this will set note name to chromnames of mFB.key
+				ns.html(mFB.getNotesDisplayChromnames()[Number(ns.attr("semiInts"))]); // shows Display Chromatic notes -- change key pulldown to change display chromatic notes
+
+				// if(paint){
+				// 	displayNoteInt = (nsSemiInt +mFB.getKeyObj()["fromC"]) % mFB.getNGintnames().length;
+				// 	ns.html(mFB.getNotesDisplayChromnames()[displayNoteInt]);
+				// 	//ns.html(mFB.getChromNames()[nsSemiInt]); // REMOVED: this will set note name to chromnames of mFB.key
+				// } else {
+				// 	displayNoteInt = (nsSemiInt +mFB.getKeyObj()["fromC"]) % mFB.getNGintnames().length;
+				// 	ns.html(mFB.getNotesDisplayChromnames()[displayNoteInt]);
+				// }
+
 			}
 
-			var isPainted = is_painted($('#nc_'+i+'_'+j));
-			if(COLORBYINTERVALS && is_painted($('#nc_'+i+'_'+j)) )
-			{
+			if(paint){
+				var isPainted = is_painted($('#nc_'+i+'_'+j));
+				if(COLORBYINTERVALS && is_painted($('#nc_'+i+'_'+j)) )
+				{
 
-				ctl_color_td_by_interval(i,j); //send string, fret
+					ctl_color_td_by_interval(i,j); //send string, fret
+				}
 			}
 		}
+
 	}
 	ctrl_updateMessage();
 
@@ -466,12 +481,12 @@ var ctl_updateIntervalMode = function(isIntervalMode){
 		if(isIntervalMode){
 			$('#modeNoteInt').attr('value', 'Notes');
 			INTERVALMODE = true;
-			set_notespans();
+			set_notespans(true);
 			update_link();
 		} else {
 			$('#modeNoteInt').attr('value', 'Intervals');
 			INTERVALMODE = false;
-			set_notespans();
+			set_notespans(true);
 			update_link();
 		}
 
@@ -552,14 +567,14 @@ var ctl_updateColorIntMode = function(boolNewMode){
 			$('#colorByInterval').attr('value', 'Pallete Color' );
 			// hide color pallete
 			$('#colorchooser').hide();
-			set_notespans();
+			set_notespans(true);
 			update_link();
 		} else{
 			COLORBYINTERVALS = false;
 			$('#colorByInterval').attr('value', 'Color Intervals' );
 			// hide color pallete
 			$('#colorchooser').show();
-			set_notespans();
+			set_notespans(true);
 			update_link();
 		}
 	}
@@ -572,23 +587,23 @@ var ctl_color_td_by_interval = function(string, fret){
 
 var ctl_change_key = {
 	"setRoot" : function(kObj){
-			mFB.setKey(kObj);
+			mFB.setKey(kObj, false);
 			if($("#selKey").val() != kObj.safename){
 				$("#selKey").val(kObj.safename);
 			}
-			set_notespans();
+			set_notespans(true);
 		},
 	"keyChangeNotegroup" : function(kSafeName){
-			mFB.setKey(dictKeys[kSafeName]);
-			var selKeyVal = $("#selKey").val();
-			if(selKeyVal != kSafeName){
-				$("#selKey").val(kSafeName);
-			}
+			mFB.setKey(dictKeys[kSafeName], false);
+			// var selKeyVal = $("#selKey").val(); // removed, changing notegroup does not change display notes
+			// if(selKeyVal != kSafeName){
+			// 	$("#selKey").val(kSafeName);
+			// }
 		},
 	"selKeyChange" : function(selKeyVal){
 
-			mFB.setKey(dictKeys[selKeyVal]);
-			set_notespans();
+			mFB.setKey(dictKeys[selKeyVal], true);
+			set_notespans(false);
 			update_link();
 		}
 
@@ -660,21 +675,6 @@ var ctl_newIntQuiz = function(){
 	while ((intString == rootString && rootFret == intFret) || (intFret < lowFret) || (intFret > highFret)){
 		intFret = randomIntFromInterval(intFretMin, intFretMax);
 	}
-
-
-
-	// while (!(intFret >= lowFret && intFret <= highFret && rootFret != intFret) ){
-	// 		intFret =  Math.floor(Math.random() * highFret +1 )  ;
-	// 		if(intFret - rngFrets < rootFret || intFret + rngFrets > rootFret ){
-	// 			// out of range; invalid
-	// 			intFret = -1;
-	// 		}
-	// }
-
-	// while (!((Math.abs(intStr - rootString)) <= rngStr )){
-	// 	var rootString = Math.floor((Math.random() * GUITAR_STRINGS.length) );
-	// 	var intString= Math.floor((Math.random() * GUITAR_STRINGS.length) );
-	// }
 
 	// get safeName from note
 	var newRootNoteName = $('#'+'ns_'+rootString+'_'+rootFret).attr('notename');
@@ -795,7 +795,7 @@ var set_notes_per_notegroup = function(keySafeName, ngType, ng){
 			ctl_change_key.keyChangeNotegroup(keySafeName);
 			var ng = ngType+'_'+ng;
 			mFB.setNotegroup(ng);
-			set_notespans();
+			set_notespans(true);
 			ctl_updateQuizzing(ST_QUIZZING_NONE);
 			COLORBYINTERVALS = !paletteState; // keep pallete if open
 }
@@ -1032,11 +1032,6 @@ var populateNotegroupsRandRootTab = function(){
 		$('#prefRRQ_'+mPref.aPrefs.rrq_Notegroups[ng][0]).click(function(){
 			oneRRQalwaysChecked(this);
 		});
-   		// if($('#prefRRQ_'+mPref.aPrefs.rrq_Notegroups[ng][0]).is(':checked')){
-     //    mPref.aPrefs.rrq_Notegroups[ng][1] = true;
-     //  } else{
-     //    mPref.aPrefs.rrq_Notegroups[ng][1] = false;
-     //  }
     }
 };
 
@@ -1134,8 +1129,6 @@ jQuery(document).ready(function() {
 
 	$( ".cNoteGroup" ).draggable({ addClasses: false });
 
-
-
 	// make fretboard
 
 	$(gen_fret_boxes(GTR_FRETS, GTR_STRINGS)).insertAfter($('#mainfretboard'));
@@ -1158,7 +1151,7 @@ jQuery(document).ready(function() {
 
 
 	// instantiate prefsModel -- for user preferences to govern and be saved as cookie or storage
-	mPref = PrefModel;
+	mPref = PrefModel; // PrefModel class is in PrefModel.js
 	mPref.init(dictScales, GUITAR_STRINGS[0].length, GUITAR_STRINGS.length); // notegroups array, maxFrets, maxStrings
 
 
